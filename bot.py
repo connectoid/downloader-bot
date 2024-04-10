@@ -1,10 +1,12 @@
-import pytube
+from pytube import YouTube
 
-def download(url):
+def get_video(url):
     try:
-        youtubelink=pytube.YouTube(url)
-        video=youtubelink.streams.get_lowest_resolution()
-        video.download()
+        yt = YouTube(url)
+        for stream in yt.streams:
+            print(stream.resolution)
+        # video=yt.streams.get_lowest_resolution()
+        # video.download()
         return True
     except:
         print('Wrong URL')
@@ -12,5 +14,6 @@ def download(url):
     
 
 url = 'https://www.youtube.com/shorts/zgBwy2FrQ9w'
+url = 'https://www.youtube.com/watch?v=2EZ5Z6mBEa8'
 
-download(url)
+get_video(url)
