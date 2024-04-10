@@ -76,7 +76,7 @@ with webdriver.Chrome(
     })
 
     driver.get(url)
-    # time.sleep(10)
+    time.sleep(10)
     html = driver.page_source
     print('Source recieved')
     video_url = get_video(html)
