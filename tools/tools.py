@@ -81,7 +81,7 @@ def get_html(url):
             })
             try:
                 driver.get(url)
-                time.sleep(1)
+                time.sleep(2)
                 html = driver.page_source
                 return html
             except Exception as e:
