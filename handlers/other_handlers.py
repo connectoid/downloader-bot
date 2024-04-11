@@ -21,11 +21,11 @@ async def get_user_url(message: Message):
         video_url = get_video(html)
         if video_url:
             print(f'Recieved video url')
-            save_source_to_file(html)
-            file_name = generate_random_name() + '.mp4'
-            file_name = download_file_from_url(video_url, file_name, 'video')
-            print(f'File {file_name} saved')
-            video = open(file_name, "rb")
+            # save_source_to_file(html)
+            # file_name = generate_random_name() + '.mp4'
+            # file_name = download_file_from_url(video_url, file_name, 'video')
+            # print(f'File {file_name} saved')
+            # video = open(file_name, "rb")
             await message.answer(text=f'File {file_name} saved')
             await bot.send_video(message.chat.id, video_url)
             # await bot.send_video(message.chat.id, video = video)
