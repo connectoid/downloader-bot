@@ -27,7 +27,8 @@ async def get_user_url(message: Message):
             print(f'File {file_name} saved')
             video = open(file_name, "rb")
             await message.answer(text=f'File {file_name} saved')
-            await bot.send_video(message.chat.id, video = video)
+            await bot.send_video(message.chat.id, video_url)
+            # await bot.send_video(message.chat.id, video = video)
         else:
             await message.answer(text=f'Ошибка при получении ссылки на видео')
     else:
