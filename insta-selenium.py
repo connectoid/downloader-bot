@@ -59,29 +59,30 @@ def download_file_from_url(url, file_name, dest_folder, chunk_size=128):
             f.write(data)
             block_num.update(len(data))
 
-url = input('Отправьте ссылку на видео Instagram: ')
 
-with webdriver.Chrome(
-        options=options,
-        service=ChromiumService(ChromeDriverManager().install())
-    ) as driver:
+while True:
+    url = input('Отправьте ссылку на видео Instagram: ')
+    with webdriver.Chrome(
+            options=options,
+            service=ChromiumService(ChromeDriverManager().install())
+        ) as driver:
 
 
-    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-        'source': '''
-            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
-            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
-            delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
-    '''
-    })
+        driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+            'source': '''
+                delete window.cdc_adoQpoasnfa76pfcZLmcfl_Array;
+                delete window.cdc_adoQpoasnfa76pfcZLmcfl_Promise;
+                delete window.cdc_adoQpoasnfa76pfcZLmcfl_Symbol;
+        '''
+        })
 
-    driver.get(url)
-    time.sleep(10)
-    html = driver.page_source
-    print('Source recieved')
-    video_url = get_video(html)
-    # video_url = video_url.split('.mp4')[0] + '.mp4'
-    save_source_to_file(html)
-    print(video_url)
-    file_name = generate_random_name() + '.mp4'
-    download_file_from_url(video_url, file_name, 'video')
+        driver.get(url)
+        time.sleep(10)
+        html = driver.page_source
+        # print('Source recieved')
+        video_url = get_video(html)
+        # video_url = video_url.split('.mp4')[0] + '.mp4'
+        save_source_to_file(html)
+        # print(video_url)
+        file_name = generate_random_name() + '.mp4'
+        download_file_from_url(video_url, file_name, 'video')
