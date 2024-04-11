@@ -64,6 +64,7 @@ def download_file_from_url(url, file_name, dest_folder, chunk_size=128):
         for data in response.iter_content(chunk_size):
             f.write(data)
             block_num.update(len(data))
+    return file_name
 
 
 def get_html(url):

@@ -1,19 +1,29 @@
-from pytube import YouTube
+import os
+import asyncio
+from dotenv import load_dotenv
 
-def get_video(url):
+from aiogram import Bot, Dispatcher
+
+from handlers import user_handlers, other_handlers
+
+HELLO_MESSAGE = 'Hello'
+
+load_dotenv()
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
+async def main():
+    bot = Bot(token=BOT_TOKEN)
+    dp = Dispatcher() 
+
+    dp.include_router(user_handlers.router)
+    dp.include_router(other_handlers.router)
+
+    await bot.delete_webhook(drop_pending_updates=True)
+    await dp.start_polling(bot)
+
+
+if __name__ == '__main__':
     try:
-        yt = YouTube(url)
-        for stream in yt.streams:
-            print(stream.resolution)
-        # video=yt.streams.get_lowest_resolution()
-        # video.download()
-        return True
-    except:
-        print('Wrong URL')
-        return False
-    
-
-url = 'https://www.youtube.com/shorts/zgBwy2FrQ9w'
-url = 'https://www.youtube.com/watch?v=2EZ5Z6mBEa8'
-
-get_video(url)
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        print('Bot stopped')
