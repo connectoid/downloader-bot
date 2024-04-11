@@ -37,7 +37,7 @@ def generate_random_name():
 
 
 def get_video(html):
-    soup = BeautifulSoup(html, 'lxml')
+    soup = BeautifulSoup(html, 'html')
     video = soup.find('video')
     return video['src']
 
